@@ -11,24 +11,26 @@ ForecastIO.api_key = "8ada1ea79ccb1b14962f899ce5000f24"
 
 get "/" do
     # show a view that asks for the location
-
     view "ask"
 end
 
 get "/news" do
     # do everything else
+    @location = params["location"]
     results = Geocoder.search(params["location"])
     lat_long = results.first.coordinates
     lat = "#{lat_long[0]}"
     long = "#{lat_long[1]}"
+    
     @forecast = ForecastIO.forecast("#{lat}","#{long}").to_hash
-    @current_temp = @forecast["currently"]["temperature"]
-    # @daily_forecast = @forecast["daily"]["data"].slice(0, 1)
+    @current_temperature = @forecast["currently"]["temperature"]
+    @current_conditions = @forecast["currently"]["summary"]
+    @daily_forecast = @forecast["daily"]["data"].slice(0, 5)
 
-    view "ask"
+    @url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=468f712111694cd8a42245681807ac81"
+    @news = HTTParty.get(@url).parsed_response.to_hash
+    @current_news = @news["articles"][3]["description"]
+
+
+    view "news"
 end
-
-    # url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=468f712111694cd8a42245681807ac81"
-    # news = HTTParty.get(url).parsed_response.to_hash
-    # current_news = news["articles"][3]["description"]
-    # "#{current_news}"

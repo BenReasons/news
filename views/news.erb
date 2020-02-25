@@ -21,16 +21,18 @@
     <title>News</title>
   </head>
   <body>
-
     <div class="container mt-5">
-      <h1>News</h1>
-      <div class="container mt-5">
-      <h1>What location would you like to see?</h1>
-      <form action="/news">
-        <input type="text" name="location">
-        <button type="submit">See news and weather!</submit>
-      </form>
+        <h1><%= @location %>: Local Weather and National News</h1>
+        <p>In <%= @location %>, it is currently <%= @current_conditions %></p>
+        <p><%= @current_news %></p>
     </div>
+    
+    <div class="container mt-5">
+    <% for day in @daily_forecast %>
+        <p>This is a test yeah <%= day["summary"] %></p>
+    <% end %>
+    </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
