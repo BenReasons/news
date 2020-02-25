@@ -4,4 +4,10 @@ url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=468f712111694cd8a4
 news = HTTParty.get(url).parsed_response.to_hash
 current_news = news["articles"]
 
-pp current_news
+articles = []
+
+for article in current_news
+    articles << "#{article["title"]} #{article["url"]}"
+end
+
+pp articles.slice(0,5)

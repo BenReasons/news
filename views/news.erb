@@ -24,18 +24,18 @@
     <div class="container mt-5">
         <h1><%= @location %>: Local Weather and National News</h1>
         <p>In <%= @location %>, it is currently <%= @current_conditions %></p>
-        <p><%= @current_news %></p>
     </div>
     
     <div class="container mt-5">
     <% for day in @daily_forecast %>
-        <p>This is a test yeah <%= day["summary"] %></p>
+        <p><%= day["summary"] %></p>
     <% end %>
     </div>
 
     <div class="container mt-5">
-    <% for news in @current_news %>
-        <p>This is a test yeah <%= news %></p>
+    <h3>Top 3 Daily Headlines</h3>
+    <% for article in @current_news %>
+        <p><%= article["title"] %> - <a href="<%= article["url"] %>">Link to article</a></p>
     <% end %>
     </div>
 
