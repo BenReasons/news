@@ -19,27 +19,61 @@
     <link rel="stylesheet" href="/styles.css">
 
     <title>News</title>
-  </head>
-  <body>
-    <div class="container mt-5">
-        <h1><%= @location %>: Local Weather and National News</h1>
-        <p>In <%= @location %>, it is currently <%= @current_conditions %></p>
+</head>
+<body>
+
+    <!-- This section references the input location and summarizes local weather and national news -->
+    <div class="jumbotron">
+        <div class="container-sm">
+            <h1><%= @location %>: Local Weather and National News</h1>
+            <p>In <%= @location %>, it is currently <%= @current_temperature.round() %> degrees and <%= @current_conditions %>.</p>
+        </div>
     </div>
     
-    <div class="container mt-5">
-    <table>
-    <tr>
-    <% for day1 in @daily_forecast %>
-            <th><%= Time.at(day1["time"]).strftime("%A: %m/%d") %></th>
-    <% end %>
-    </tr>
-    </table>
-    <% for day in @daily_forecast %>
-        <p><%= day["summary"] %></p>
-    <% end %>
+    <!-- This section contains a 5-day weather forecast for the input location -->
+    <div class="container-sm">
+        <h3>5-Day Forecast</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th width="10%"></th>
+                    <% for day1 in @daily_forecast %>
+                        <th width="18%"><%= Time.at(day1["time"]).strftime("%A: %m/%d") %></th>
+                    <% end %>
+                </tr>
+                <tr>
+                    <td width="10%">High</td>
+                    <% for high_temp in @daily_forecast %>
+                        <td width="18%"><%= high_temp["temperatureHigh"].round() %></td>
+                    <% end %>
+                </tr>
+                <tr>
+                    <td width="10%">Low</td>
+                    <% for low_temp in @daily_forecast %>
+                        <td width="18%"><%= low_temp["temperatureLow"].round() %></td>
+                    <% end %>
+                </tr>
+                <tr>
+                    <td width="10%">Precip</td>
+                    <% for precip in @daily_forecast %>
+                        <% if precip["precipProbability"].round(1)*100>0 %>
+                        <td width="18%"><%= precip["precipProbability"].round(1)*100 %>% chance of <%= precip["precipType"] %>.</td>
+                        <% else %>
+                        <td width="18%">No forecasted precipitation.</td>
+                        <% end %>
+                    <% end %>
+                </tr>
+                <tr> 
+                    <td width="10%">Summary</td>
+                    <% for day in @daily_forecast %>
+                        <td wiedth="18%"><%= day["summary"] %></td>
+                    <% end %>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <div class="container mt-5">
+    <div class="container-sm">
     <h3>Top 3 Daily Headlines</h3>
     <% for article in @current_news %>
         <p><%= article["title"] %> - <a href="<%= article["url"] %>">Link to article</a></p>
