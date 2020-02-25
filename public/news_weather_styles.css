@@ -22,6 +22,7 @@ table {
 .navbar {
     background-color: darkslategrey;
     color: white;
+    vertical-align: middle;
 }
 .nav-link {
     color: white;
@@ -29,4 +30,15 @@ table {
 thead {
     background-color: darkslateblue;
     color: white;
+}
+a {
+    color: darkslategrey;
+}
+.news_headline {
+    font-size: 1.5rem;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 500;
 }

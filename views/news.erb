@@ -41,7 +41,7 @@
                 </ul>
                 <form action="/news">
                 <input type="text" placeholder="Search Additional Cities" aria-label="Search Additional Cities" name="location">
-                <button type="submit">Local Weather</submit>
+                <button type="submit">Search</submit>
                 </form>
             </div>
         </div>
@@ -52,15 +52,17 @@
         <div class="container-sm">
             <div class="row">
                 <div class="col-sm-12">
-                    <h1><%= @location %>: Major News Stories and Local Weather</h1>
+                    <h1 class="major_headline"><b><%= @location %>: Major News Stories and Local Weather</b></h1>
                 </div>
             </div>
+            <hr class="my-sm-4">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3>National News</h3>
+                    <h3><b>National News</b></h3>
                     <% for article in @current_news %>
-                    <p><a href="<%= article["url"] %>" target="_blank"><%= article["title"] %></a></p>
+                    <p class="news_headline"><a href="<%= article["url"] %>" target="_blank"><%= article["title"] %></a></p>
                     <p><%= article["description"] %></p>
+                    <hr class="my-sm-4">
                     <% end %>
                 </div>
             </div> 
@@ -71,7 +73,7 @@
     <div class="container-sm">
         <div class="row">
             <div class="col-sm-12">
-                <h3>Local Weather</h3>
+                <h3><b>Local Weather</b></h3>
             </div>
         </div>
         <div class="row">
@@ -79,6 +81,7 @@
                 <p>In <%= @location %>, it is currently <%= @current_temperature.round() %> degrees and <%= @current_conditions %>. The real feel is <%= @apparent_temperature.round() %> degrees and the UV Index is <%= @current_uvindex.round(1) %>.</p>
             </div>
         </div>
+        <hr class="my-sm-4">
         <div class="row">
             <div class="col-sm-12">
                 <h5>5-Day Forecast</h5>

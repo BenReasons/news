@@ -21,20 +21,22 @@
     <title>Input Location</title>
   </head>
   <body class="ask">
-    <!-- This is used to display a simple navbar that allows the end user to choose a new city -->
+    <!-- This is used to display a simple navbar that allows the end user to choose a city -->
     <nav class="navbar navbar-expand-sm">
         <div class="container-sm">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <p class="search">Please use the search box to request information about local weather and major news stories:</p>
+                </li>
+                </ul>
                 <form action="/news">
                 <input type="text" placeholder="Search Cities" aria-label="Search Cities" name="location">
-                <button type="submit">Local Weather</submit>
+                <button type="submit">Search</submit>
                 </form>
             </div>
         </div>
     </nav>
-    <div class="container-sm">
-        <h1>Please use the search box above to request information about search-dependent local weather and general major news stories</h1>
-    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
