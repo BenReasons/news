@@ -2,6 +2,7 @@ body {
     color: black;
     background-color: whitesmoke;
     font-family: 'Raleway';
+    font-weight: 500;
 }
 body.ask {
     font-family: 'Lato';
@@ -11,6 +12,12 @@ table {
 }
 .jumbotron {
     background-color: lightgoldenrodyellow;
+    margin-bottom: 1rem;
+    padding: 2rem 1rem;
+        padding-top: 2rem;
+        padding-right: 1rem;
+        padding-bottom: 2rem;
+        padding-left: 1rem;
 }
 .navbar {
     background-color: darkslategrey;

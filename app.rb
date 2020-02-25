@@ -24,12 +24,15 @@ get "/news" do
     
     # Send the lat/long coordinates to the Dark Sky API. Retrieve the result and display the current and forecasted weather in a user-friendly format
     @forecast = ForecastIO.forecast("#{lat}","#{long}").to_hash
+
+    # Current - temperature, conditions, "real feel", and UV index
     @current_temperature = @forecast["currently"]["temperature"]
+    @current_conditions = @forecast["currently"]["summary"]
     @apparent_temperature = @forecast["currently"]["apparentTemperature"]
     @current_uvindex = @forecast["currently"]["uvIndex"]
-    @current_conditions = @forecast["currently"]["summary"]
+
+    # Forecast - @daily_forecast will be used to calculate high, low, precip, and summary
     @daily_forecast = @forecast["daily"]["data"].slice(0, 5)
-    @high_temperature = @forecast["daily"]["data"][0]["temperatureHigh"]
 
     # Use the News API to retrieve the top news headlines. Display the news and a link to the source article.
     @url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=468f712111694cd8a42245681807ac81"
