@@ -7,7 +7,7 @@
 
     <!-- Google Fonts -->
     <!-- Swap out "Roboto" for the font(s) you want to use -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito|Arvo|Gelasio|Overpass&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" crossorigin="anonymous">
@@ -18,8 +18,9 @@
     <!-- Your own CSS -->
     <link rel="stylesheet" href="/styles.css">
 
-    <title>News</title>
+    <title>Weather and News</title>
 </head>
+
 <body>
 
     <!-- This section references the input location and summarizes local weather and national news -->
@@ -36,37 +37,38 @@
         <div class="table-responsive">
             <table class="table">
                 <tr>
-                    <th width="10%"></th>
+                    <th style="text-align:left" width="10%"></th>
                     <% for day1 in @daily_forecast %>
-                        <th width="18%"><%= Time.at(day1["time"]).strftime("%A: %m/%d") %></th>
+                        <th style="text-align:center" width="18%"><%= Time.at(day1["time"]).strftime("%A: %m/%d") %></th>
                     <% end %>
                 </tr>
                 <tr>
-                    <td width="10%">High</td>
+                    <td style="text-align:left" width="10%"><b>High</b></td>
                     <% for high_temp in @daily_forecast %>
-                        <td width="18%"><%= high_temp["temperatureHigh"].round() %></td>
+                        <td style="text-align:center" width="18%"><%= high_temp["temperatureHigh"].round() %></td>
                     <% end %>
                 </tr>
                 <tr>
-                    <td width="10%">Low</td>
+                    <td style="text-align:left" width="10%"><b>Low</b></td>
                     <% for low_temp in @daily_forecast %>
-                        <td width="18%"><%= low_temp["temperatureLow"].round() %></td>
+                        <td style="text-align:center" width="18%"><%= low_temp["temperatureLow"].round() %></td>
                     <% end %>
                 </tr>
+                <!-- For precipProbability > 0, display % chance and precipType. Else, display 'No forecast precipitation.' -->
                 <tr>
-                    <td width="10%">Precip</td>
+                    <td style="text-align:center" width="10%"><b>Precipitation</b></td>
                     <% for precip in @daily_forecast %>
                         <% if precip["precipProbability"].round(1)*100>0 %>
-                        <td width="18%"><%= precip["precipProbability"].round(1)*100 %>% chance of <%= precip["precipType"] %>.</td>
+                        <td style="text-align:center" width="18%"><%= precip["precipProbability"].round(1)*100 %>% chance of <%= precip["precipType"] %>.</td>
                         <% else %>
-                        <td width="18%">No forecasted precipitation.</td>
+                        <td style="text-align:center" width="18%">No forecasted precipitation.</td>
                         <% end %>
                     <% end %>
                 </tr>
                 <tr> 
-                    <td width="10%">Summary</td>
+                    <td style="text-align:left" width="10%"><b>Summary</b></td>
                     <% for day in @daily_forecast %>
-                        <td wiedth="18%"><%= day["summary"] %></td>
+                        <td style="text-align:center" width="18%"><%= day["summary"] %></td>
                     <% end %>
                 </tr>
             </table>
