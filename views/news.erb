@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Google Fonts -->
-    <!-- Swap out "Roboto" for the font(s) you want to use -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito|Arvo|Gelasio|Overpass&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" crossorigin="anonymous">
@@ -16,70 +15,127 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     
     <!-- Your own CSS -->
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/news_weather_styles.css">
 
     <title>Weather and News</title>
 </head>
 
 <body>
+    <!-- This is used to display a simple navbar that allows the end user to choose a new city -->
+    <nav class="navbar navbar-expand-sm">
+        <div class="container-sm">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"><%= @location %></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Local Sports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Financial Markets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Politics</a>
+                </li>
+                </ul>
+                <form action="/news">
+                <input type="text" placeholder="Search Additional Cities" aria-label="Search Additional Cities" name="location">
+                <button type="submit">Local Weather</submit>
+                </form>
+            </div>
+        </div>
+    </nav>
 
-    <!-- This section references the input location and summarizes local weather and national news -->
+    <!-- This section references the input location and summarizes the major news -->
     <div class="jumbotron">
         <div class="container-sm">
-            <h1><%= @location %>: Local Weather and National News</h1>
-            <p>In <%= @location %>, it is currently <%= @current_temperature.round() %> degrees and <%= @current_conditions %>.</p>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1><%= @location %>: Major News Stories and Local Weather</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>National News</h3>
+                    <% for article in @current_news %>
+                    <p><a href="<%= article["url"] %>" target="_blank"><%= article["title"] %></a></p>
+                    <p><%= article["description"] %></p>
+                    <% end %>
+                </div>
+            </div> 
         </div>
     </div>
     
     <!-- This section contains a 5-day weather forecast for the input location -->
     <div class="container-sm">
-        <h3>5-Day Forecast</h3>
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th style="text-align:left" width="10%"></th>
-                    <% for day1 in @daily_forecast %>
-                        <th style="text-align:center" width="18%"><%= Time.at(day1["time"]).strftime("%A: %m/%d") %></th>
-                    <% end %>
-                </tr>
-                <tr>
-                    <td style="text-align:left" width="10%"><b>High</b></td>
-                    <% for high_temp in @daily_forecast %>
-                        <td style="text-align:center" width="18%"><%= high_temp["temperatureHigh"].round() %></td>
-                    <% end %>
-                </tr>
-                <tr>
-                    <td style="text-align:left" width="10%"><b>Low</b></td>
-                    <% for low_temp in @daily_forecast %>
-                        <td style="text-align:center" width="18%"><%= low_temp["temperatureLow"].round() %></td>
-                    <% end %>
-                </tr>
-                <!-- For precipProbability > 0, display % chance and precipType. Else, display 'No forecast precipitation.' -->
-                <tr>
-                    <td style="text-align:center" width="10%"><b>Precipitation</b></td>
-                    <% for precip in @daily_forecast %>
-                        <% if precip["precipProbability"].round(1)*100>0 %>
-                        <td style="text-align:center" width="18%"><%= precip["precipProbability"].round(1)*100 %>% chance of <%= precip["precipType"] %>.</td>
-                        <% else %>
-                        <td style="text-align:center" width="18%">No forecasted precipitation.</td>
-                        <% end %>
-                    <% end %>
-                </tr>
-                <tr> 
-                    <td style="text-align:left" width="10%"><b>Summary</b></td>
-                    <% for day in @daily_forecast %>
-                        <td style="text-align:center" width="18%"><%= day["summary"] %></td>
-                    <% end %>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Local Weather</h3>
+            </div>
         </div>
-    </div>
-
-    <div class="container-sm">
-    <h3>Top 3 Daily Headlines</h3>
-    <% for article in @current_news %>
-        <p><%= article["title"] %> - <a href="<%= article["url"] %>">Link to article</a></p>
-    <% end %>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>In <%= @location %>, it is currently <%= @current_temperature.round() %> degrees and <%= @current_conditions %>. The real feel is <%= @apparent_temperature.round() %> degrees and the UV Index is <%= @current_uvindex.round(1) %>.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h5>5-Day Forecast</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="text-align:left" width="10%"></th>
+                                <% for day1 in @daily_forecast %>
+                                    <th style="text-align:center" width="18%"><%= Time.at(day1["time"]).strftime("%a: %m/%d") %></th>
+                                <% end %>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td style="text-align:left" width="10%"><b>High</b></td>
+                            <% for high_temp in @daily_forecast %>
+                                <td style="text-align:center" width="18%"><%= high_temp["temperatureHigh"].round() %></td>
+                            <% end %>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left" width="10%"><b>Low</b></td>
+                            <% for low_temp in @daily_forecast %>
+                                <td style="text-align:center" width="18%"><%= low_temp["temperatureLow"].round() %></td>
+                            <% end %>
+                        </tr>
+                        <!-- For precipProbability > 0, display % chance and precipType. Else, display 'No forecast precipitation.' -->
+                        <tr>
+                            <td style="text-align:center" width="10%"><b>Precipitation</b></td>
+                            <% for precip in @daily_forecast %>
+                                <% if precip["precipProbability"].round(1)*100>0 %>
+                                <td style="text-align:center" width="18%"><%= precip["precipProbability"].round(1)*100 %>% chance of <%= precip["precipType"] %>.</td>
+                                <% else %>
+                                <td style="text-align:center" width="18%">No forecasted precipitation.</td>
+                                <% end %>
+                            <% end %>
+                        </tr>
+                        <!-- I tried to get sunrise to work, but I am not able to figure out the time zone portion of the display (%z) -->
+                        <!--
+                        <tr>
+                            <td style="text-align:left" width="10%"><b>Sunrise</b></td>
+                            <% for sunrise in @daily_forecast %>
+                                <td style="text-align:center" width="18%"><%= Time.at(sunrise["sunriseTime"]).strftime("%k:%M") %></td>
+                            <% end %>
+                        <tr>  -->
+                            <td style="text-align:left" width="10%"><b>Summary</b></td>
+                            <% for day in @daily_forecast %>
+                                <td style="text-align:center" width="18%"><%= day["summary"] %></td>
+                            <% end %>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 

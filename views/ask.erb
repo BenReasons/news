@@ -7,7 +7,7 @@
 
     <!-- Google Fonts -->
     <!-- Swap out "Roboto" for the font(s) you want to use -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Trade Winds&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" crossorigin="anonymous">
@@ -16,20 +16,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     
     <!-- Your own CSS -->
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/news_weather_styles.css">
 
     <title>Input Location</title>
   </head>
-  <body>
-
-    <div class="container mt-5">
-      <h1>News</h1>
-      <div class="container mt-5">
-      <h1>What location would you like to see?</h1>
-      <form action="/news">
-        <input type="text" name="location">
-        <button type="submit">See news and weather!</submit>
-      </form>
+  <body class="ask">
+    <!-- This is used to display a simple navbar that allows the end user to choose a new city -->
+    <nav class="navbar navbar-expand-sm">
+        <div class="container-sm">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form action="/news">
+                <input type="text" placeholder="Search Cities" aria-label="Search Cities" name="location">
+                <button type="submit">Local Weather</submit>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container-sm">
+        <h1>Please use the above search box request information about search-dependent local weather and general major news stories</h1>
     </div>
 
     <!-- Optional JavaScript -->

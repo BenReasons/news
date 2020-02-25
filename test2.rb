@@ -23,4 +23,4 @@ ForecastIO.api_key = "8ada1ea79ccb1b14962f899ce5000f24"
 @day_time_base = @forecast["daily"]["data"][0]["time"]
 @day_time = Time.at(@day_time_base).strftime("%a").slice(0, 5)
 
-pp @day_time
+pp @forecast["currently"]

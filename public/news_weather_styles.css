@@ -1,0 +1,25 @@
+body {
+    color: black;
+    background-color: whitesmoke;
+    font-family: 'Raleway';
+}
+body.ask {
+    font-family: 'Lato';
+}
+table {
+    background-color: white;
+}
+.jumbotron {
+    background-color: lightgoldenrodyellow;
+}
+.navbar {
+    background-color: darkslategrey;
+    color: white;
+}
+.nav-link {
+    color: white;
+}
+thead {
+    background-color: darkslateblue;
+    color: white;
+}

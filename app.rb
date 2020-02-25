@@ -15,23 +15,26 @@ get "/" do
 end
 
 get "/news" do
-    # do everything else
+    # Use the Geocoder API to turn input location into a set of lat/long coordinates.
     @location = params["location"]
     results = Geocoder.search(params["location"])
     lat_long = results.first.coordinates
     lat = "#{lat_long[0]}"
     long = "#{lat_long[1]}"
     
+    # Send the lat/long coordinates to the Dark Sky API. Retrieve the result and display the current and forecasted weather in a user-friendly format
     @forecast = ForecastIO.forecast("#{lat}","#{long}").to_hash
     @current_temperature = @forecast["currently"]["temperature"]
+    @apparent_temperature = @forecast["currently"]["apparentTemperature"]
+    @current_uvindex = @forecast["currently"]["uvIndex"]
     @current_conditions = @forecast["currently"]["summary"]
     @daily_forecast = @forecast["daily"]["data"].slice(0, 5)
     @high_temperature = @forecast["daily"]["data"][0]["temperatureHigh"]
 
+    # Use the News API to retrieve the top news headlines. Display the news and a link to the source article.
     @url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=468f712111694cd8a42245681807ac81"
     @news = HTTParty.get(@url).parsed_response.to_hash
-    @current_news = @news["articles"].slice(0,3)
-
+    @current_news = @news["articles"].slice(0,3)    # will list 3 articles
 
     view "news"
 end

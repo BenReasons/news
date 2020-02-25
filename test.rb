@@ -10,4 +10,4 @@ for article in current_news
     articles << "#{article["title"]} #{article["url"]}"
 end
 
-pp articles.slice(0,5)
+pp current_news
